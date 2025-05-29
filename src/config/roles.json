@@ -1,0 +1,31 @@
+{
+  "roles": [
+    {
+      "name": "admin",
+      "permissions": [
+        "get_user",
+        "delete_user"
+      ]
+    },
+    {
+      "name": "provider",
+      "permissions": [
+        "create_task",
+        "read_task",
+        "update_task",
+        "delete_task",
+        "read_application"
+      ]
+    },
+    {
+      "name": "user",
+      "permissions": [
+        "create_application",
+        "read_task",
+        "get_tasks",
+        "update_application",
+        "delete_application"
+      ]
+    }
+  ]
+}
