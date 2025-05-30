@@ -6,26 +6,36 @@ dotenv.config({path:'.env'});
 const SECRET = process.env.JWT_SECRET;
 
 export interface CustomRequest extends Request {
- token: string | JwtPayload;
+ user: {
+    email: string,
+    role: string
+ }
 }
 
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     try{
+        
+        if(!SECRET){
+        console.error("Can not extract jwt secret");
+        return;
+        }
+
         //extract authorization header
         const authHeader = req.headers.authorization;
-        if(!authHeader) {
-            return console.error("Auth header not found");
+        if(!authHeader || !authHeader.startsWith('Bearer')) {
+            return res.status(401).json({ message: 'Missing or invalid token' });
         }
         
         //authorization header: "bearer ${token}", so we split it this way to get only the token 
         const token = authHeader?.split(" ")[1];
         
         //storing the decoded token
-        const decoded = jwt.verify(token, SECRET);
+        const decoded = jwt.verify(token, SECRET) as {email: string, role : string};
 
-        //passing it on to the req, we had to make a customRequest as original request type of express dont have token as its member
-        (req as CustomRequest).token = decoded;
+        //passing it on to the req, we had to make a customRequest as original request type of express dont have user as its member
+        //we assign user role to req.user so that we can use it in RBAC middleware
+        (req as CustomRequest).user = decoded;
     
         next();
 

@@ -14,7 +14,8 @@
         "read_task",
         "update_task",
         "delete_task",
-        "read_application"
+        "read_application",
+        "read_applications"
       ]
     },
     {
