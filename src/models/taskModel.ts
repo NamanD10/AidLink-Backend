@@ -43,7 +43,7 @@ export const getTaskById = async(taskId:number) => {
 
 export const createTask = async(title:string, description:string, requesterId:number) => {
     
-    //create user with prisma
+    //create task with prisma
     try{
         const task = await prisma.task.create({
         data: {
@@ -54,7 +54,7 @@ export const createTask = async(title:string, description:string, requesterId:nu
     )
     return task;
     } catch (error){
-        console.error("error occured during updating task", error);
+        console.error("error occured during creating task", error);
     }
     
 };

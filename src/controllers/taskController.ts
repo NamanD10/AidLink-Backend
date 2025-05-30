@@ -62,4 +62,3 @@ export const handleDeleteTask = async(req:Request, res:Response) => {
 
 };
 
-//TODO: create the RBAC system and then add auth middlewares and role based middlewares wherever necessary
